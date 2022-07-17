@@ -1,11 +1,9 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
     List<Player> players = new ArrayList<>();
@@ -31,7 +29,7 @@ public class GameTest {
 
     @Test
     public void roundNoWin() throws NotFoundException {
-//        List<Player> players = new ArrayList<>();
+
         game.register(p1);
         game.register(p2);
         game.register(p3);
@@ -69,4 +67,69 @@ public class GameTest {
 
         assertThrows(NotFoundException.class, () -> game.round("p1","p2"));
     }
+
+    @Test
+    public void registered() throws NotFoundException {
+        game.register(p1);
+        game.register(p2);
+
+        boolean actual = game.matches("p1");
+        boolean expected = true;
+
+        assertTrue (game.matches("p1"));
+    }
+    @Test
+    public void notRegistered() throws NotFoundException {
+
+        boolean expected = false;
+
+        assertFalse (game.matches("p3"));
+    }
+
+    @Test
+    public void exceptionP1() throws NotFoundException {
+        game.register(p2);
+        game.register(p3);
+
+        boolean expected = false;
+
+        assertFalse (game.matches("p1"));
+    }
+
+//    @Test
+//    public void exceptionP2() throws NotFoundException {
+//        game.register(p3);
+//        game.register(p4);
+//
+//        boolean expected = false;
+//
+//        assertTrue (game.matches("p1"));
+//    }
+
+//    @Test
+//    void exceptionP2() throws NotFoundException {
+//        game.register(p3);
+//        game.register(p4);
+//
+//        assertThrows(NotFoundException.class, () -> game.round("p2","p3"));
+//    }
+
+    @Test
+    public void exceptionP2() throws NotFoundException {
+        game.register(p1);
+        game.register(p3);
+
+        assertThrows(NotFoundException.class, () -> game.round("p1","p2"));
+    }
+
+//    @Test
+//    public void registered() throws NotFoundException {
+//        game.register(p1);
+//        game.register(p2);
+//
+//        boolean actual = game.matches("p1");
+//        boolean expected = true;
+//
+//        assertTrue (game.matches("p1"));
+//    }
 }

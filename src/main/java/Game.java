@@ -9,12 +9,10 @@ public class Game {
     }
 
     public boolean matches(String name) {
-        for (Player player : players
-        ) {
+        for (Player player : players) {
             if (player.getName().equals(name)) {
                 return true;
             }
-
         }
         return false;
     }
@@ -31,9 +29,16 @@ public class Game {
                 p2 = player.getStrength();
             }
         }
+
+//        if (!matches(playerName1) || !matches(playerName2)) {
+//            throw new NotFoundException("Один из игроков не найден");
+//        }
+
         if (p1 == 0) {
             throw new NotFoundException("Игрок " + playerName1 + " не найден");
         }
+//        if(p1 == 0 || p2 == 0) {
+
         if (p2 == 0) {
             throw new NotFoundException("Игрок " + playerName2 + " не найден");
         }

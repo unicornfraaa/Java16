@@ -31,11 +31,11 @@ public class GameTest {
 
     @Test
     public void roundNoWin() throws NotFoundException {
-        List<Player> players = new ArrayList<>();
-        players.add(p1);
-        players.add(p2);
-        players.add(p3);
-        players.add(p4);
+//        List<Player> players = new ArrayList<>();
+        game.register(p1);
+        game.register(p2);
+        game.register(p3);
+        game.register(p4);
 
         int expected = 0;
         int actual = game.round("p1", "p4");
@@ -44,26 +44,29 @@ public class GameTest {
 
     @Test
     public void roundWinPlayer2() throws NotFoundException {
-        players.add(p1);
-        players.add(p2);
+        game.register(p1);
+        game.register(p2);
 
         int expected = 2;
-        int actual = game.round("p2");
+        int actual = game.round("p1", "p2");
         assertEquals(expected, actual);
     }
 
     @Test
     public void roundWinPlayer3() throws NotFoundException {
-        players.add(p3);
-        players.add(p4);
+        game.register(p3);
+        game.register(p4);
 
         int expected = 1;
-        int actual = game.round("p3");
+        int actual = game.round("p3","p4");
         assertEquals(expected, actual);
     }
 
     @Test
     void roundReturnsException() throws NotFoundException {
-        assertThrows(NotFoundException.class, () -> game.round("p3"));
+        game.register(p3);
+        game.register(p4);
+
+        assertThrows(NotFoundException.class, () -> game.round("p1","p2"));
     }
 }
